@@ -1,0 +1,3 @@
+admin: Czesc
+admin2: Siema
+admin: Co tam
