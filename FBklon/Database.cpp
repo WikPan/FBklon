@@ -14,7 +14,8 @@ bool Database::loadDatabase() {
                 cerr << "Nieprawid³owy format w linii: " << line << endl;
                 continue;
             }
-            unique_ptr <User> userPtr = make_unique<User>(line.substr(0, separatorPos), line.substr(separatorPos + 1));
+            shared_ptr <User> userPtr = make_shared<User>(line.substr(0, separatorPos), line.substr(separatorPos + 1));
+           // User nowy(line.substr(0, separatorPos), line.substr(separatorPos + 1)); Bez wskaznika
             this->database.push_back(userPtr);
         }
 	}

@@ -3,6 +3,7 @@
 class LoginAndRegister
 {
 public:
+	shared_ptr<User> logIn(Database & databaseChecked, string& login, string& password);
 
 };
 
