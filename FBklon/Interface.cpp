@@ -4,9 +4,9 @@ Interface::Interface() {
 	database.loadDatabase();
 }
 int Interface::choice(int maxChoice) {
-	bool correct = true;
+	bool correct = false;
 	int input;
-	while (correct) {
+	while (!correct) {
 		cout << "Please enter your choice:\n";
 		cin >> input;
 		if (input < 1 || input > maxChoice) {
@@ -15,53 +15,55 @@ int Interface::choice(int maxChoice) {
 			system("PAUSE");
 			system("CLS");
 		}
+        correct = true;
 	}
 	return input;
 }
-bool Interface::startupScreen() {
-	cout << "Hi what do you want to do?\n";
-	cout << "pres 1. to Login\n";
-	cout << "pres 2. to Register\n";
-	//Przywitac uzytkownika i ma podac dwa stringi - login i password
-	//1. login 2. register
-	//1. login 
-	string login, password;
 
+void Interface::startupScreen() {
+    cout << "Welcome to BookFace?\n";
+    cout << "1. Login\n";
+    cout << "2. Register\n";
+    cout << "3. Exit\n";
+    string login, password;
 
+    int input = choice(3); //Tutaj zamiast 3 max liczba opcji
 
-	int input = choice(3); //Tutaj zamiast 3 max liczba opcji
-
-	if (input == 1) {
-		cout << "You chose to Login\n";
-		cout << "Login: ";
-		cin >> login;
-		cout << "\n Password: ";
-		cin >> password;
-		//login = "admin";
-		//password = "admin1";
-		currentUser = make_shared<User>(databaseInterface.logIn(database, login, password));
-		if (currentUser == nullptr) {
-			//Nie udalo sie
-			cout << "Wrong password or login";
-			return false;
-		}
-		//zalogowano
-		cout << "You have succesfull login\n";
-	}
-	else if (input == 2) {
-		cout << "You chose to Register\n";
-		cout << "Your login: ";
-		cin >> login;
-		cout << "\nYour password: ";
-		cin >> password;
-	}
-	else {
-		cout << "THIS OPTIONS IS FORBBIDEN";
-	}
+    if (input == 1) {
+        bool logowaniePoprawne = false;
+        while (!logowaniePoprawne) {
+            cout << "*****LOGIN PAGE*****\n";
+            cout << "Login: ";
+            cin >> login;
+            cout << "\nPassword: ";
+            cin >> password;
+            currentUser = databaseInterface.logIn(database, login, password);
+            if (currentUser == nullptr) {
+                cout << "Wrong login or password\n";
+                system("pause");
+                system("cls");
+               
+            }
+            
+        }
+        cout << "You have succesfully logged in!\n";
+        system("pause");
+        system("cls");
+    }
+    else if (input == 2) {
+        cout << "******REGISTER PAGE*******\n";
+        cout << "login: ";
+        cin >> login;
+        cout << "\npassword: ";
+        cin >> password;
+    }
+    else {
+        cout << "Goodbye!";
+    }
 }
 bool Interface::options() {
 
 
-
 	int input = choice(3); //Tutaj zamiast 3 max liczba opcji
+    return true;
 }

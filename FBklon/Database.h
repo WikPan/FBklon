@@ -11,7 +11,9 @@ private:
 
 public:
 	list<shared_ptr<User>> getDatabase() { return this->database; }
-	void setDatabase(list<shared_ptr<User>> passedDatabase) { this->database = passedDatabase; }
+	void setDatabase(list<shared_ptr<User>> & passedDatabase) { this->database = passedDatabase; }
 	bool loadDatabase();
+	void addUser(shared_ptr<User>& registered);
+	void updateDatabaseInTXT();
 };
 

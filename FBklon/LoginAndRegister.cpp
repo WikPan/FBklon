@@ -7,3 +7,15 @@ shared_ptr<User> LoginAndRegister::logIn(Database& databaseChecked, string & log
 	}
 	return nullptr;
 }
+bool LoginAndRegister::registerUser(Database& databaseChecked, string& login, string& password) {
+	for (auto user : databaseChecked.getDatabase()) {
+		if (user->getLogin() == login) {
+			cout << "This login is already used! Please try another one...\n";
+			return false;
+		}	
+	}
+	shared_ptr<User> createdUser = make_shared <User>(login, password);
+	databaseChecked.addUser(createdUser);
+	databaseChecked.updateDatabaseInTXT();
+	return true;
+}

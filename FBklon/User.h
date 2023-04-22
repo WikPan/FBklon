@@ -12,10 +12,7 @@ public:
 	string getPassword() { return this->password; }
 	void setLogin(string& passedLogin) { this->login = passedLogin; }
 	void setPassword(string& passedPassword) { this->password = passedPassword; }
-	User(string loadedLogin, string loadedPassword) {
-		this->login = loadedLogin;
-		this->password = loadedPassword;
-	}
+	User(string loadedLogin, string loadedPassword): login(loadedLogin), password(loadedPassword) {}
 	User() {}
 };
 
