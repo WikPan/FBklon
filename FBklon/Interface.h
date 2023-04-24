@@ -10,9 +10,14 @@ public:
 	Interface();
 	void startupScreen();
 	bool options();
+	void printUsers();
 	/** \brief Funkcja pobieraj¹ca liczbê od u¿ytkownika dopóki wybór nie nale¿y do zakresu <1;maxChoice>.
 	* \param[in] maxChoice Maksymalna mo¿liwa opcja 
 	*/
 	int choice(int maxChoice);
+};
+
+class AdminInterface : public Interface {
+
 };
 

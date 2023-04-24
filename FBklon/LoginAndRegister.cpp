@@ -11,6 +11,8 @@ bool LoginAndRegister::registerUser(Database& databaseChecked, string& login, st
 	for (auto user : databaseChecked.getDatabase()) {
 		if (user->getLogin() == login) {
 			cout << "This login is already used! Please try another one...\n";
+			system("pause");
+			system("cls");
 			return false;
 		}	
 	}

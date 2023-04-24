@@ -1,2 +1,3 @@
-﻿  Database.cpp
-  FBklon.vcxproj -> C:\Users\Wiktor\Desktop\semestr 2\cz2\x64\Debug\FBklon.exe
+﻿  Interface.cpp
+C:\Users\Wiktor\Desktop\semestr 2\cz3\FBklon\Interface.cpp(104,60): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  FBklon.vcxproj -> C:\Users\Wiktor\Desktop\semestr 2\cz3\x64\Debug\FBklon.exe
