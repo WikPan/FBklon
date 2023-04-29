@@ -1,7 +1,5 @@
 #pragma once
 #include "User.h"
-#include <list>
-#include <memory>
 #include <iostream>
 #include <fstream>
 class Database
@@ -15,5 +13,9 @@ public:
 	bool loadDatabase();
 	void addUser(shared_ptr<User>& registered);
 	void updateDatabaseInTXT();
+	void addFriendFile(string addedFriendLogin, string currentUserLogin);
+	void loadFriendsList(shared_ptr<User>& currentUser);
+	void addUserFolder(shared_ptr<User>& currentUser);
+
 };
 

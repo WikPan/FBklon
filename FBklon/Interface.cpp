@@ -54,7 +54,7 @@ void Interface::startupScreen() {
     }
     else if (input == 2) {
         do {
-            cout << "******REGISTER PAGE*******\n";
+            cout << "******REGISTER PAGE******\n";
             cout << "login: ";
             cin >> login;
             cout << "\npassword: ";
@@ -68,42 +68,93 @@ void Interface::startupScreen() {
 }
 bool Interface::options() {
     cout << "User options:" << endl;
-    cout << "1. Find Friends\n";
-    cout << "2. Messege\n";
-    cout << "3. Exit\n";
-	int input = choice(3);
+    cout << "1. View users.\n";
+    cout << "2. Find user by login.\n";
+    cout << "3. Message.\n";
+    cout << "4. Exit.\n";
+	int input = choice(4);
     switch (input) {
     case 1:
-        cout << "Users list. Find your friend.\n";
-        printUsers();
+        addUser();
         break;
-
     case 2:
-        cout << "Massege to your friend.\n";
+        addUserByLogin();
         break;
     case 3:
-        cout << "GoodBye!\n";
+        cout << "Message your friend.\n";
+        break;
+    case 4:
+        cout << "Goodbye!\n";
         break;
     }
     return true;
 }
-void Interface::printUsers() {
-    int licznik = 1;
-    int choiceuser; 
-    
-    for (auto user : database.getDatabase()) {
-        if (user->getLogin() == currentUser->getLogin()) {
-            continue;
+void Interface::printUsers(){
+    int counter = 1;
+        for (auto user : database.getDatabase()) {
+            if (user->getLogin() == currentUser->getLogin())
+                continue;
+        cout << counter << ". " << user->getLogin() << endl;
+        counter++;
+    }
+}
+void Interface::checkAndAdd(shared_ptr<User> checked) {
+    if (currentUser->addFriend(checked))
+        database.addFriendFile(checked->getLogin(), currentUser->getLogin());
+    else {
+        cout << "You are already friends...\n";
+        system("pause");
+        system("cls");
+    }
+}
+void Interface::addUser() {
+    int userIndex;
+    bool correct = false;
+    do {
+        cout << "Users list. Find your friend.\n";
+        printUsers();
+        cout << "Select user to add them to your friends list.\nIf you want to exit this panel enter 0:\n";
+        cin >> userIndex;
+        if (userIndex == 0) 
+            return;
+        if (userIndex >= 1 and userIndex <= database.getDatabase().size()-1) {
+            correct = true;
+            int counter = 1;
+            for (auto user : database.getDatabase()) {
+                if (counter == userIndex) {
+                    checkAndAdd(user);
+                }
+                counter++;
+            }
         }
-        cout << licznik << ". " << user->getLogin() << endl;
-        licznik++;
-    }
-    choiceuser = this->choice(database.getDatabase().size());
-    if (choiceuser == 0) return ;
-    if (choiceuser >= 1 and choiceuser <= database.getDatabase().size()) {
+        else {
+            correct = false;
+            cout << "Wrong option! Please make sure to choose option from range <0;" << database.getDatabase().size() - 1 << ">\n";
+            system("pause");
+            system("cls");
+        }
+    } while (!correct);  
 
+}
+void Interface::addUserByLogin() {
+    string login;
+    cout << "Please input your friend login in order to add them (Enter 0 to exit):\n";
+    cin >> login;
+    bool correct = false;
+    if (login == "0")
+        return;
+    for (auto user : database.getDatabase()) {
+        if (user->getLogin() == login) {
+            cout << "We found your friend!\n";
+            checkAndAdd(user);
+            correct = true;
+        }
+        
     }
-    
+    if(!correct){
+        cout << "We didnt found your friend.\n";
+        system("PAUSE");
+        system("CLS");
+    }
 
-    
 }

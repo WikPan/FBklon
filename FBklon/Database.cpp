@@ -31,3 +31,20 @@ void Database::updateDatabaseInTXT() {
     file.close();
     
 }
+void Database::addFriendFile(string addedFriendLogin, string currentUserLogin) {
+    string userDirectory = "Users/" + currentUserLogin;
+
+    // Utwórz œcie¿kê do pliku
+    string filePath = userDirectory + "/" + addedFriendLogin + ".txt";
+
+    // Utwórz plik tekstowy o podanej nazwie
+    ofstream newFile(filePath.c_str());
+    // Zamknij plik
+    newFile.close();
+}
+void Database::loadFriendsList(shared_ptr<User> & currentUser) {
+
+}
+void Database::addUserFolder(shared_ptr<User>& currentUser) {
+   
+}
