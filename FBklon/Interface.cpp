@@ -67,6 +67,7 @@ void Interface::startupScreen() {
     }
 }
 bool Interface::options() {
+    database.loadFriendsList(currentUser);
     cout << "User options:" << endl;
     cout << "1. View users.\n";
     cout << "2. Find user by login.\n";
@@ -82,6 +83,7 @@ bool Interface::options() {
         break;
     case 3:
         cout << "Message your friend.\n";
+        messenger.message(currentUser);
         break;
     case 4:
         cout << "Goodbye!\n";
@@ -89,6 +91,7 @@ bool Interface::options() {
     }
     return true;
 }
+
 void Interface::printUsers(){
     int counter = 1;
         for (auto user : database.getDatabase()) {

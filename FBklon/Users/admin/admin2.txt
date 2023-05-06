@@ -1,0 +1,5 @@
+[16:30-3.5.2023] admin2: hi! How are you?
+[16:31-3.5.2023] admin: Fine! How about you?
+[16:32-3.5.2023] admin2: I'm good. What are your plans?
+[16:51-3.5.2023] admin: Nothing tbh
+

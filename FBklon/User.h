@@ -22,6 +22,3 @@ public:
 	User() {}
 };
 
-class Friend : public User {
-};
-

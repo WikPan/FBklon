@@ -1,4 +1,6 @@
 #include "Database.h"
+#include <filesystem>
+
 
 bool Database::loadDatabase() {
 	ifstream file("Credentials.txt");
@@ -42,9 +44,48 @@ void Database::addFriendFile(string addedFriendLogin, string currentUserLogin) {
     // Zamknij plik
     newFile.close();
 }
-void Database::loadFriendsList(shared_ptr<User> & currentUser) {
+void Database::loadFriendsList(shared_ptr<User>& currentUser) {
 
+    // Tworzenie œcie¿ki do folderu "Users"
+    string usersFolder = "Users/";
+
+    // Tworzenie œcie¿ki do folderu bie¿¹cego u¿ytkownika
+    string currentUserFolder = usersFolder + currentUser->getLogin();
+
+    // Pobieranie nazw plików z rozszerzeniem ".txt" z folderu bie¿¹cego u¿ytkownika
+    vector<string> friendsLogins;
+    for (const auto& entry : filesystem::directory_iterator(currentUserFolder)) {
+        if (entry.is_regular_file() && entry.path().extension() == ".txt") {
+            friendsLogins.push_back(entry.path().stem().string());
+        }
+    }
+    list<shared_ptr<User>> friendsList;
+    for (auto& login : friendsLogins) {
+        auto it = find_if(database.begin(), database.end(), [login](const auto& checkedFriendInList) {
+            return login == checkedFriendInList->getLogin();
+            });
+        if (it != database.end()) {
+            auto friendPtr = make_shared<User>(**it);
+            friendsList.push_back(friendPtr);
+        }
+    }
+    currentUser->setFriends(friendsList);
 }
 void Database::addUserFolder(shared_ptr<User>& currentUser) {
-   
+    // Tworzenie œcie¿ki do folderu "Users"
+    string usersFolder = "Users/";
+
+    // Sprawdzenie, czy folder istnieje i utworzenie go, jeœli nie
+    if (!filesystem::is_directory(usersFolder)) {
+        filesystem::create_directory(usersFolder);
+    }
+
+    // Dodanie folderu u¿ytkownika
+    string userFolder = usersFolder + currentUser->getLogin();
+    if (!filesystem::is_directory(userFolder)) {
+        filesystem::create_directory(userFolder);
+    }
+    //Gdy rejestrujemy nowego uzytkownika to tworzymy jego folder w folderze Users.
+    // 
+    //Dziêki temu gdy nowy uzytkownik bêdzie chcial rozmawiac z innym, to w tym jego podfolderze zostanie utworzony plik tekstowy 
 }
