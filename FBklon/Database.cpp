@@ -36,23 +36,21 @@ void Database::updateDatabaseInTXT() {
 void Database::addFriendFile(string addedFriendLogin, string currentUserLogin) {
     string userDirectory = "Users/" + currentUserLogin;
 
-    // Utwórz œcie¿kê do pliku
     string filePath = userDirectory + "/" + addedFriendLogin + ".txt";
 
-    // Utwórz plik tekstowy o podanej nazwie
     ofstream newFile(filePath.c_str());
-    // Zamknij plik
+
     newFile.close();
 }
 void Database::loadFriendsList(shared_ptr<User>& currentUser) {
 
-    // Tworzenie œcie¿ki do folderu "Users"
+
     string usersFolder = "Users/";
 
-    // Tworzenie œcie¿ki do folderu bie¿¹cego u¿ytkownika
+
     string currentUserFolder = usersFolder + currentUser->getLogin();
 
-    // Pobieranie nazw plików z rozszerzeniem ".txt" z folderu bie¿¹cego u¿ytkownika
+ 
     vector<string> friendsLogins;
     for (const auto& entry : filesystem::directory_iterator(currentUserFolder)) {
         if (entry.is_regular_file() && entry.path().extension() == ".txt") {
@@ -72,20 +70,18 @@ void Database::loadFriendsList(shared_ptr<User>& currentUser) {
     currentUser->setFriends(friendsList);
 }
 void Database::addUserFolder(shared_ptr<User>& currentUser) {
-    // Tworzenie œcie¿ki do folderu "Users"
+
     string usersFolder = "Users/";
 
-    // Sprawdzenie, czy folder istnieje i utworzenie go, jeœli nie
+
     if (!filesystem::is_directory(usersFolder)) {
         filesystem::create_directory(usersFolder);
     }
 
-    // Dodanie folderu u¿ytkownika
+
     string userFolder = usersFolder + currentUser->getLogin();
     if (!filesystem::is_directory(userFolder)) {
         filesystem::create_directory(userFolder);
     }
-    //Gdy rejestrujemy nowego uzytkownika to tworzymy jego folder w folderze Users.
-    // 
-    //Dziêki temu gdy nowy uzytkownik bêdzie chcial rozmawiac z innym, to w tym jego podfolderze zostanie utworzony plik tekstowy 
+  
 }

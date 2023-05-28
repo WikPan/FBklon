@@ -4,7 +4,22 @@
 
 int main() {
 	Interface myInter;
-	myInter.startupScreen();
+	int choice = myInter.startupScreen();
+	if (choice==1) {
+		myInter.options();
+	}
+	else if (choice == 2) {
+		AdminInterface admInterface;
+		admInterface = myInter;
+		admInterface.options();
+	
+		
+	}
+	else {
+		
+	}
+	
+
 
 
 }

@@ -16,6 +16,5 @@ public:
 	void addFriendFile(string addedFriendLogin, string currentUserLogin);
 	void loadFriendsList(shared_ptr<User>& currentUser);
 	void addUserFolder(shared_ptr<User>& currentUser);
-
 };
 
