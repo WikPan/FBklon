@@ -100,7 +100,6 @@ void Messenger::message(shared_ptr<User>& currentUser) {
         }
     };
 }
-
 void Messenger::UpdateFriendsFile(filesystem::path& ToFriendFilePath, string currentUserLogin, string & message) {
     ofstream outfile(ToFriendFilePath, ios::app);
     if (outfile.is_open()) {

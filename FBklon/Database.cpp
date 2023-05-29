@@ -2,10 +2,10 @@
 #include <filesystem>
 
 
-bool Database::loadDatabase() {
-	ifstream file("Credentials.txt");
+bool Database::loadDatabase(string fileName) {
+    ifstream file(fileName);
 	if (!file.is_open()) {
-		cout << "Nie mo¿na otworzyæ pliku Credentials.txt" << endl;
+		cout << "Couldn't open file called " << fileName << endl;
         return false;
 	}
 	else {
@@ -13,7 +13,7 @@ bool Database::loadDatabase() {
         while (getline(file, line)) {
             size_t separatorPos = line.find(":");
             if (separatorPos == string::npos) {
-                cerr << "Nieprawid³owy format w linii: " << line << endl;
+                cout << "Improper line format " << line << endl;
                 continue;
             }
             shared_ptr <User> userPtr = make_shared<User>(string(line.substr(0, separatorPos)), string(line.substr(separatorPos + 1)));
@@ -31,26 +31,22 @@ void Database::updateDatabaseInTXT() {
         file << user->getLogin() << ":" << user->getPassword() << endl;
     }
     file.close();
-    
 }
 void Database::addFriendFile(string addedFriendLogin, string currentUserLogin) {
     string userDirectory = "Users/" + currentUserLogin;
-
     string filePath = userDirectory + "/" + addedFriendLogin + ".txt";
-
     ofstream newFile(filePath.c_str());
-
+    newFile.close();
+}
+void Database::createFriendFile(string friendLogin, string currentUserLogin) {
+    string friendDirectory = "Users/" + friendLogin;
+    string filePath = friendDirectory + "/" + currentUserLogin + ".txt";
+    ofstream newFile(filePath);
     newFile.close();
 }
 void Database::loadFriendsList(shared_ptr<User>& currentUser) {
-
-
     string usersFolder = "Users/";
-
-
     string currentUserFolder = usersFolder + currentUser->getLogin();
-
- 
     vector<string> friendsLogins;
     for (const auto& entry : filesystem::directory_iterator(currentUserFolder)) {
         if (entry.is_regular_file() && entry.path().extension() == ".txt") {
@@ -70,10 +66,7 @@ void Database::loadFriendsList(shared_ptr<User>& currentUser) {
     currentUser->setFriends(friendsList);
 }
 void Database::addUserFolder(shared_ptr<User>& currentUser) {
-
     string usersFolder = "Users/";
-
-
     if (!filesystem::is_directory(usersFolder)) {
         filesystem::create_directory(usersFolder);
     }
@@ -84,4 +77,7 @@ void Database::addUserFolder(shared_ptr<User>& currentUser) {
         filesystem::create_directory(userFolder);
     }
   
+}
+void Database::clear() {
+    database.clear();
 }

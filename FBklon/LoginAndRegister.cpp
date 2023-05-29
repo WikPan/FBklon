@@ -24,11 +24,3 @@ bool LoginAndRegister::registerUser(Database& databaseChecked, string& login, st
 	databaseChecked.updateDatabaseInTXT();
 	return true;
 }
-shared_ptr<User> LoginAndRegister::logInAdmin(Database& databaseChecked, string& login, string& password) {
-	for (auto& user : databaseChecked.getDatabase()) {
-		if (user->getLogin() == login && user->getPassword() == password) {
-			return user;
-		}
-	}
-	return nullptr;
-}

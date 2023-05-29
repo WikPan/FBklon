@@ -1,2 +1,7 @@
-﻿  Interface.cpp
-  FBklon.vcxproj -> E:\PULPIT\Korepetycje Studia\cz9\x64\Debug\FBklon.exe
+﻿  Database.cpp
+  Interface.cpp
+  LoginAndRegister.cpp
+  Messenger.cpp
+  main.cpp
+  Generating Code...
+  FBklon.vcxproj -> C:\Users\Wiktor\Desktop\semestr 2\finał\x64\Debug\FBklon.exe
